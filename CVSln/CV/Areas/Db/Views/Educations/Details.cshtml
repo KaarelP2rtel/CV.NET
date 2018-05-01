@@ -1,0 +1,54 @@
+﻿@model Domain.Education
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Education</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SchoolName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SchoolName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EducationType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EducationType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StudyYears)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StudyYears)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Programme)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Programme)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderNo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrderNo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cv)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cv.CvId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.EducationId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
