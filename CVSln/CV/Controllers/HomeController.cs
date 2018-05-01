@@ -22,8 +22,8 @@ namespace CV.Controllers
             HomeViewModel vm = new HomeViewModel();
 
 #warning Hardcoded value 1
-            //vm.Cv = _uow.Cvs.Find(1);
-            return View();
+            vm.Cv = _uow.Cvs.Find(1);
+            return View(vm);
         }
     }
 }

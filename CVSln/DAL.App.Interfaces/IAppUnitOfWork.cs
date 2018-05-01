@@ -13,12 +13,12 @@ namespace DAL.App.Interfaces
         
 
         
-        IRepository<Cv> Cvs { get; }
+        ICvRepository Cvs { get; }
         IRepository<Education> Educations { get; }
         IRepository<Extra> Extras { get; }
         IRepository<Skill> Skills { get; }
         IRepository<WorkExperience> WorkExperiences { get; }
-
+    
 
     }
 }

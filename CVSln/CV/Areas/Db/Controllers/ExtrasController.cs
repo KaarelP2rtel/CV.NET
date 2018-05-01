@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CV.Data;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CV.Areas.Db.Controllers
 {
     [Area("Db")]
+    [Authorize(Roles ="Admin")]
     public class ExtrasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -37,7 +39,7 @@ namespace CV.Areas.Db.Controllers
 
             var extra = await _context.Extras
                 .Include(e => e.Cv)
-                .SingleOrDefaultAsync(m => m.SkillId == id);
+                .SingleOrDefaultAsync(m => m.ExtraId == id);
             if (extra == null)
             {
                 return NotFound();
@@ -58,7 +60,7 @@ namespace CV.Areas.Db.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SkillId,Name,Content,CvId")] Extra extra)
+        public async Task<IActionResult> Create([Bind("ExtraId,Name,Content,CvId")] Extra extra)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +80,7 @@ namespace CV.Areas.Db.Controllers
                 return NotFound();
             }
 
-            var extra = await _context.Extras.SingleOrDefaultAsync(m => m.SkillId == id);
+            var extra = await _context.Extras.SingleOrDefaultAsync(m => m.ExtraId == id);
             if (extra == null)
             {
                 return NotFound();
@@ -92,9 +94,9 @@ namespace CV.Areas.Db.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SkillId,Name,Content,CvId")] Extra extra)
+        public async Task<IActionResult> Edit(int id, [Bind("ExtraId,Name,Content,CvId")] Extra extra)
         {
-            if (id != extra.SkillId)
+            if (id != extra.ExtraId)
             {
                 return NotFound();
             }
@@ -108,7 +110,7 @@ namespace CV.Areas.Db.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ExtraExists(extra.SkillId))
+                    if (!ExtraExists(extra.ExtraId))
                     {
                         return NotFound();
                     }
@@ -133,7 +135,7 @@ namespace CV.Areas.Db.Controllers
 
             var extra = await _context.Extras
                 .Include(e => e.Cv)
-                .SingleOrDefaultAsync(m => m.SkillId == id);
+                .SingleOrDefaultAsync(m => m.ExtraId == id);
             if (extra == null)
             {
                 return NotFound();
@@ -147,7 +149,7 @@ namespace CV.Areas.Db.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var extra = await _context.Extras.SingleOrDefaultAsync(m => m.SkillId == id);
+            var extra = await _context.Extras.SingleOrDefaultAsync(m => m.ExtraId == id);
             _context.Extras.Remove(extra);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -155,7 +157,7 @@ namespace CV.Areas.Db.Controllers
 
         private bool ExtraExists(int id)
         {
-            return _context.Extras.Any(e => e.SkillId == id);
+            return _context.Extras.Any(e => e.ExtraId == id);
         }
     }
 }

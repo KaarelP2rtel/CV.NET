@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Domain
 {
-    public class Extra : Skill
+    public class Extra : SkillExtra
     {
-
+        public int ExtraId { get; set; }
     }
 }

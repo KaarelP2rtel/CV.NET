@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CV.Data;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 
-namespace CV.Areas.Db.Controllers
+namespace CV.Areas.Db
 {
     [Area("Db")]
+    [Authorize(Roles = "Admin")]
     public class CvsController : Controller
     {
         private readonly ApplicationDbContext _context;

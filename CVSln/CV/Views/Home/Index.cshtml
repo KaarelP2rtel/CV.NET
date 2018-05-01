@@ -1,2 +1,138 @@
-﻿@model CV.Models.HomeViewModel
+﻿@{
+    ViewData["Title"] = "CV";
+}
 
+
+@model CV.Models.HomeViewModel
+
+
+
+<div class="container">
+    <div class="col-lg-3">
+        <img class="img-rounded img-responsive" src="@Model.Cv.ImageLink" />
+    </div>
+    <div class="col-lg-9">
+        <div class="panel ">
+            <div class="panel-heading">
+                <h3></h3>
+            </div>
+            <div class="panel-body">
+                <h4>Sündinud:</h4>
+                @Model.Cv.BirthDay.ToString("dd-MM-yyyy")
+                <h4>Elukoht</h4>
+                @Model.Cv.Address
+                <h4>Kontakt</h4>
+                @Model.Cv.Phone,
+                @Model.Cv.Email
+            </div>
+
+        </div>
+    </div>
+    @if (Model.Cv.Educations.Count != 0)
+    {
+        <div class="col-lg-6">
+            <div class="panel ">
+                <div class="panel-heading">
+                    <h3>Haridus</h3>
+                </div>
+                <div class="panel-body">
+                    @foreach (var e in Model.Cv.Educations.OrderByDescending(e=> e.OrderNo))
+                    {
+                        <div class="panel ">
+                            <div class="panel-heading">
+                                <h4>@e.SchoolName  </h4>
+                                <h5>@e.EducationType</h5>
+                                <h5>@e.StudyYears</h5>
+                            </div>
+                            <div class="panel-body">
+                                <span>Õppekava: @e.Programme</span>
+                                <span></span>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    }
+    @if (Model.Cv.WorkExperiences.Count != 0)
+    {
+        <div class="col-lg-6">
+            <div class="panel ">
+                <div class="panel-heading">
+                    <h3>Töökogemus</h3>
+                </div>
+                <div class="panel-body">
+                    @foreach (var w in Model.Cv.WorkExperiences)
+                    {
+                        <div class="panel ">
+                            <div class="panel-heading">
+                                <h4>@w.CompanyName  </h4>
+                                <h5>@w.WorkYears</h5>
+
+                            </div>
+                            <div class="panel-body">
+                                <span>Amet: @w.JobTitle</span>
+                                <span></span>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    }
+    @if (Model.Cv.Skills.Count != 0)
+    {
+        <div class="col-lg-6">
+            <div class="panel ">
+                <div class="panel-heading">
+                    <h3>Oskused</h3>
+                </div>
+                <div class="panel-body">
+                    @foreach (var s in Model.Cv.Skills)
+                    {
+                        <div class="panel ">
+                            <div class="panel-heading">
+                                <h4>@s.Name</h4>
+                            </div>
+                            <div class="panel-body">
+                                <span>@s.Content</span>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    }
+
+    @if (Model.Cv.Extras.Count != 0)
+    {
+        <div class="col-lg-6">
+            <div class="panel ">
+                <div class="panel-heading">
+                    <h3>Lisad</h3>
+                </div>
+                <div class="panel-body">
+                    @foreach (var e in Model.Cv.Skills)
+                    {
+                        <div class="panel ">
+                            <div class="panel-heading">
+                                <h4>@e.Name</h4>
+                            </div>
+                            <div class="panel-body">
+                                <span>@e.Content</span>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    }
+</div>

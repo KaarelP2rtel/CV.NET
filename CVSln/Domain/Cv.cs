@@ -20,6 +20,7 @@ namespace Domain
         public List<Education> Educations { get; set; }
         public List<WorkExperience> WorkExperiences { get; set; }
         public List<Skill> Skills { get; set; }
+        public List<Extra> Extras { get; set; }
 
 
 

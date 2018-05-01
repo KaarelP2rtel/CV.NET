@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CV.Data;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CV.Areas.Db.Controllers
 {
     [Area("Db")]
+    [Authorize(Roles = "Admin")]
     public class WorkExperiencesController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace DAL.App.EF.Migrations
 {
-    public partial class InitialDbCreation : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -198,6 +198,27 @@ namespace DAL.App.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Extras",
+                columns: table => new
+                {
+                    ExtraId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Content = table.Column<string>(nullable: true),
+                    CvId = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Extras", x => x.ExtraId);
+                    table.ForeignKey(
+                        name: "FK_Extras_Cvs_CvId",
+                        column: x => x.CvId,
+                        principalTable: "Cvs",
+                        principalColumn: "CvId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Skills",
                 columns: table => new
                 {
@@ -205,7 +226,6 @@ namespace DAL.App.EF.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Content = table.Column<string>(nullable: true),
                     CvId = table.Column<int>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -286,6 +306,11 @@ namespace DAL.App.EF.Migrations
                 column: "CvId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Extras_CvId",
+                table: "Extras",
+                column: "CvId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Skills_CvId",
                 table: "Skills",
                 column: "CvId");
@@ -315,6 +340,9 @@ namespace DAL.App.EF.Migrations
 
             migrationBuilder.DropTable(
                 name: "Educations");
+
+            migrationBuilder.DropTable(
+                name: "Extras");
 
             migrationBuilder.DropTable(
                 name: "Skills");

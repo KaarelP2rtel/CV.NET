@@ -4,17 +4,9 @@ using System.Text;
 
 namespace Domain
 {
-    public class Skill
+    public class Skill :SkillExtra
     {
 
-        //Skill properties
         public int SkillId { get; set; }
-        public string Name { get; set; }
-        public string Content { get; set; }
-
-        //Navigation Properties
-        public int CvId { get; set; }
-        public Cv Cv { get; set; }
-
     }
 }

@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 using System;
 
 namespace DAL.App.EF.Migrations
@@ -120,6 +119,24 @@ namespace DAL.App.EF.Migrations
                     b.ToTable("Educations");
                 });
 
+            modelBuilder.Entity("Domain.Extra", b =>
+                {
+                    b.Property<int>("ExtraId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Content");
+
+                    b.Property<int>("CvId");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("ExtraId");
+
+                    b.HasIndex("CvId");
+
+                    b.ToTable("Extras");
+                });
+
             modelBuilder.Entity("Domain.Skill", b =>
                 {
                     b.Property<int>("SkillId")
@@ -129,9 +146,6 @@ namespace DAL.App.EF.Migrations
 
                     b.Property<int>("CvId");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
                     b.Property<string>("Name");
 
                     b.HasKey("SkillId");
@@ -139,8 +153,6 @@ namespace DAL.App.EF.Migrations
                     b.HasIndex("CvId");
 
                     b.ToTable("Skills");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Skill");
                 });
 
             modelBuilder.Entity("Domain.WorkExperience", b =>
@@ -271,20 +283,18 @@ namespace DAL.App.EF.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Domain.Extra", b =>
-                {
-                    b.HasBaseType("Domain.Skill");
-
-
-                    b.ToTable("Extra");
-
-                    b.HasDiscriminator().HasValue("Extra");
-                });
-
             modelBuilder.Entity("Domain.Education", b =>
                 {
                     b.HasOne("Domain.Cv", "Cv")
                         .WithMany("Educations")
+                        .HasForeignKey("CvId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Domain.Extra", b =>
+                {
+                    b.HasOne("Domain.Cv", "Cv")
+                        .WithMany("Extras")
                         .HasForeignKey("CvId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

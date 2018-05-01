@@ -15,15 +15,15 @@ namespace DAL.App.EF
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly IRepositoryProvider _repositoryProvider;
 
-        public IRepository<Cv> Cvs => GetEntityRepository<Cv>();
+        public ICvRepository Cvs => GetCustomRepository<ICvRepository>();
 
-        public IRepository<Education> Educations => GetEntityRepository<Education>();
+        public IRepository<Education> Educations => throw new NotImplementedException();
 
-        public IRepository<Extra> Extras => GetEntityRepository<Extra>();
+        public IRepository<Extra> Extras => throw new NotImplementedException();
 
-        public IRepository<Skill> Skills => GetEntityRepository<Skill>();
+        public IRepository<Skill> Skills => throw new NotImplementedException();
 
-        public IRepository<WorkExperience> WorkExperiences => GetEntityRepository<WorkExperience>();
+        public IRepository<WorkExperience> WorkExperiences => throw new NotImplementedException();
 
         public AppEFUnitOfWork(IDataContext dataContext, IRepositoryProvider repositoryProvider)
         {
