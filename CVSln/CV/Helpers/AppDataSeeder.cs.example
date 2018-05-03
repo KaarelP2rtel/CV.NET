@@ -1,0 +1,54 @@
+using CV.Data;
+using CV.Models;
+using Microsoft.AspNetCore.Identity;
+
+namespace Helpers
+{
+    public class AppDataSeeder
+    {
+        public static void InitializeAppDatabase(ApplicationDbContext context)
+        {
+           //Here be Initial Data
+
+           
+        }
+
+        private static readonly string[] Roles = new[]
+        {
+            "Admin"
+        };
+
+        public static void InitializeIdentity(UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager)
+        {
+            foreach (var role in Roles)
+            {
+                if (!roleManager.RoleExistsAsync(role).Result)
+                {
+                    roleManager.CreateAsync(new IdentityRole(role)).Wait();
+                }
+            }
+
+            var userName = "example";
+            var userPass = "example";
+
+            if (userManager.FindByNameAsync(userName).Result == null)
+            {
+                var user = new ApplicationUser()
+                {
+                    UserName = userName,
+                    Email = userName
+                };
+
+                var res = userManager.CreateAsync(user, userPass).Result;
+                if (res == IdentityResult.Success)
+                {
+                    foreach (var role in Roles)
+                    {
+                        userManager.AddToRoleAsync(user, role).Wait();
+                    }
+                }
+            }
+        }
+    }
+}
